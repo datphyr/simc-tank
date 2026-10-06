@@ -36,13 +36,9 @@ simc-tank margin   examples/example_blood.simc --rate 150000
 simc-tank sweep    examples/example_blood.simc --start 100000 --steps 4
 simc-tank variants examples/example_blood.simc --ds module --ds health80 --ds pure
 
-# run a full action list from a file, and compare two of them
-simc-tank ttd examples/example_blood.simc --actions-file examples/best_survival.actions
+# measure an arbitrary action list, supplied as a file
+simc-tank ttd examples/example_blood.simc --actions-file my_actions.actions
 ```
-
-`examples/best_survival.actions` is a Blood DK action list found by
-[`tools/search_ttd.py`](tools/search_ttd.py) to maximise TTD (+7.8 s over the
-stock APL — see [`docs/METRICS.md`](docs/METRICS.md#searching-for-the-best-survivability-apl)).
 
 `examples/example_blood.simc` is a synthetic Blood DK profile; substitute any
 SimC gear export.
