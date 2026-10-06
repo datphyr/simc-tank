@@ -1,0 +1,11 @@
+# Example Blood Death Knight profile (synthetic).
+# Replace with your own SimulationCraft gear export.
+deathknight="ExampleTank"
+level=90
+race=night_elf
+region=eu
+server=example
+role=tank
+spec=blood
+
+talents=CoPAkXBWxkyfx9CbGaHonEAhLxMzyMzwMmZmhZZmZmmZxMjZmxAAAAAmhZmZmZMzYAAzMzMzAAAMzsNGGzYZpxy2ywkthhNAzYAAwMzMDgB

@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "simc-tank"
+version = "0.1.0"
+description = "Survivability metrics for SimulationCraft tanks: steady-state margin, damage ceiling, and time-to-death under a ramping damage stream."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+keywords = ["simulationcraft", "simc", "wow", "tank", "theorycraft", "survivability"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Topic :: Games/Entertainment",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+]
+dependencies = []
+
+[project.scripts]
+simc-tank = "simc_tank.cli:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"simc_tank.data" = ["*.actions"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

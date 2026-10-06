@@ -1,0 +1,40 @@
+# Blood DK (San'layn) baseline action list, inlined from SimC 12.1
+# ActionPriorityLists/default/deathknight_blood.simc (high_prio + san_gift + sanlayn)
+# One action per line. Used as the --base for variant authoring.
+auto_attack
+use_items
+use_item,name=light_company_guidon,use_off_gcd=1,if=cooldown.dancing_rune_weapon.remains>78|fight_remains<15
+use_item,name=algethar_puzzle_box,if=fight_remains>122|cooldown.dancing_rune_weapon.remains>78|fight_remains<25
+use_item,name=voracious_heart_of_ulatek,use_off_gcd=1,if=cooldown.dancing_rune_weapon.remains>78|fight_remains<20
+use_item,name=blazebinders_hoof,use_off_gcd=1,if=cooldown.dancing_rune_weapon.remains>78|fight_remains<20|fight_remains>120
+use_item,name=vile_vial_of_volatile_venom,use_off_gcd=1,if=cooldown.dancing_rune_weapon.remains>78|fight_remains<20|fight_remains>120
+fireblood,if=fight_remains>120|cooldown.dancing_rune_weapon.remains>78|fight_remains<8
+blood_fury,if=fight_remains>120|cooldown.dancing_rune_weapon.remains>78|fight_remains<12
+berserking,if=cooldown.dancing_rune_weapon.remains>78|fight_remains<=15
+ancestral_call,if=fight_remains>120|cooldown.dancing_rune_weapon.remains>78|fight_remains<15
+potion,if=cooldown.dancing_rune_weapon.remains>78|fight_remains<=30
+vampiric_blood,if=!buff.vampiric_blood.up
+raise_dead,use_off_gcd=1
+dancing_rune_weapon,if=!buff.exterminate.up&!debuff.reapers_mark_debuff.up&(fight_remains>95|fight_remains<25|time>300)
+heart_strike,if=(buff.gift_of_the_sanlayn.up)&(buff.essence_of_the_blood_queen.remains<1.5&buff.essence_of_the_blood_queen.remains)
+death_strike,if=(buff.gift_of_the_sanlayn.up)&(runic_power.deficit<36)
+any_dnd,if=(buff.gift_of_the_sanlayn.up)&(buff.crimson_scourge.remains&!buff.visceral_strength.remains)
+heart_strike,if=(buff.gift_of_the_sanlayn.up)&(buff.essence_of_the_blood_queen.stack<7)
+death_strike,if=buff.gift_of_the_sanlayn.up
+blood_boil,if=(buff.gift_of_the_sanlayn.up)&(buff.boiling_point.up)
+heart_strike,if=buff.gift_of_the_sanlayn.up
+blood_boil,if=buff.gift_of_the_sanlayn.up
+deaths_caress,if=(!(buff.gift_of_the_sanlayn.up))&(!buff.bone_shield.up|buff.bone_shield.remains<1.5|buff.bone_shield.stack<=1)
+heart_strike,if=(!(buff.gift_of_the_sanlayn.up))&((buff.essence_of_the_blood_queen.remains<1.5&buff.essence_of_the_blood_queen.remains&buff.vampiric_strike.remains&fight_remains>buff.essence_of_the_blood_queen.remains+10))
+death_strike,if=(!(buff.gift_of_the_sanlayn.up))&(runic_power.deficit<20)
+deaths_caress,if=(!(buff.gift_of_the_sanlayn.up))&(buff.bone_shield.stack<6)
+marrowrend,if=(!(buff.gift_of_the_sanlayn.up))&(buff.bone_shield.stack<6)
+any_dnd,if=(!(buff.gift_of_the_sanlayn.up))&(buff.crimson_scourge.remains)
+blood_boil,if=(!(buff.gift_of_the_sanlayn.up))&(buff.boiling_point.up)
+marrowrend,if=(!(buff.gift_of_the_sanlayn.up))&(buff.blood_debt.stack=10)
+heart_strike,if=(!(buff.gift_of_the_sanlayn.up))&(buff.vampiric_strike.up)
+death_strike,if=(!(buff.gift_of_the_sanlayn.up))&(runic_power.deficit<40|fight_remains<10|(buff.essence_of_the_blood_queen.remains&buff.essence_of_the_blood_queen.remains<8))
+heart_strike,if=(!(buff.gift_of_the_sanlayn.up))&(rune>=2)
+blood_boil,if=!(buff.gift_of_the_sanlayn.up)
+heart_strike,if=!(buff.gift_of_the_sanlayn.up)
+death_strike,if=!(buff.gift_of_the_sanlayn.up)

@@ -1,0 +1,26 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# SimC run artifacts
+*.html
+*.json
+*.log
+runs/
+out/
+
+# Scratch
+scratch/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
