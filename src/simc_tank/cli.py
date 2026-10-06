@@ -36,7 +36,7 @@ def cmd_margin(args) -> int:
     r = metrics.steady_margin(
         profile, args.rate, school=args.school, swing=args.swing,
         iterations=args.iterations, max_time=args.max_time,
-        actions=args.actions, simc_path=args.simc,
+        actions=_actions_from_args(args), simc_path=args.simc,
     )
     m = r.metrics
     print(f"steady stream: {args.rate:,.0f} {args.school}/s (swing {args.swing:g}s), "
@@ -53,7 +53,7 @@ def cmd_ceiling(args) -> int:
     rate, r = metrics.ceiling(
         profile, lo=args.lo, hi=args.hi, tol=args.tol, school=args.school,
         swing=args.swing, iterations=args.iterations, max_time=args.max_time,
-        actions=args.actions, simc_path=args.simc,
+        actions=_actions_from_args(args), simc_path=args.simc,
     )
     print(f"damage ceiling (mu = 0) = ~{rate:,.0f} {args.school}/s")
     print(f"  at that point: DTPS = {r.metrics.dtps:,.0f}, "
@@ -66,7 +66,7 @@ def cmd_ttd(args) -> int:
     ttd = metrics.time_to_death(
         profile, start=args.start, step_pct=args.step_pct, swing=args.swing,
         upto=args.upto, school=args.school, iterations=args.iterations,
-        actions=args.actions, simc_path=args.simc,
+        actions=_actions_from_args(args), simc_path=args.simc,
     )
     print(f"ramp: {args.start:,.0f} {args.school}/s, +{args.step_pct:g}%/hit, "
           f"swing {args.swing:g}s, window {args.upto:g}s")
@@ -84,12 +84,12 @@ def cmd_sweep(args) -> int:
         ttd = metrics.time_to_death(
             profile, start=start, step_pct=args.step_pct, swing=args.swing,
             upto=args.upto, school=args.school, iterations=args.iterations,
-            actions=args.actions, simc_path=args.simc,
+            actions=_actions_from_args(args), simc_path=args.simc,
         )
         m = metrics.steady_margin(
             profile, start, school=args.school, swing=args.swing,
             iterations=args.iterations, max_time=int(args.upto),
-            actions=args.actions, simc_path=args.simc,
+            actions=_actions_from_args(args), simc_path=args.simc,
         ).metrics
         print(f"{start:>12,.0f} {m.dtps:>10,.0f} {m.hps:>10,.0f} {_fmt_ttd(ttd):>10}")
         start *= args.mult
@@ -154,6 +154,15 @@ def _add_common(p: argparse.ArgumentParser) -> None:
     p.add_argument("--iterations", type=int, default=500)
     p.add_argument("--actions", default=None,
                    help="override the default action list (colon-separated)")
+    p.add_argument("--actions-file", default=None, metavar="PATH",
+                   help="override with an action list from a file (one per line)")
+
+
+def _actions_from_args(args) -> Optional[str]:
+    """Resolve the effective actions override from --actions / --actions-file."""
+    if getattr(args, "actions_file", None):
+        return "/".join(_read_base(args.actions_file))
+    return getattr(args, "actions", None)
 
 
 def build_parser() -> argparse.ArgumentParser:

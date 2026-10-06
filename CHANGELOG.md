@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0
+
+- `--actions-file PATH` option to run a full action list from a file.
+- `tools/search_ttd.py`: coordinate-descent search for the best-survivability
+  APL, with TTD as the objective.
+- `examples/best_survival.actions`: the found action list (+7.8 s TTD over the
+  stock APL).
+- Documented what does *not* help (Vampiric Blood gating under a per-hit ramp,
+  Bone Shield top-up, Icebound Fortitude, Lichborne) in `docs/METRICS.md`.
+
 ## 0.1.0
 
 Initial release.

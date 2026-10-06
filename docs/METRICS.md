@@ -65,6 +65,36 @@ essentially tied with a plain `health.pct < 80` threshold. Reproduce with:
 simc-tank variants examples/example_blood.simc --ds module --ds health80 --ds health70 --ds pure
 ```
 
+## Searching for the best-survivability APL
+
+`tools/search_ttd.py` runs a coordinate-descent search over rotation knobs
+(Death Strike trigger, Vampiric Blood trigger, Bone Shield top-up) with TTD as
+the objective. On the sample Blood DK profile it converges to:
+
+| action list | TTD (default ramp) | DPS |
+|---|---|---|
+| stock SimC APL | 132.9 s | 80,800 |
+| **best found** (`examples/best_survival.actions`) | **140.7 s (+7.8 s, +5.9%)** | 78,400 (−3.0%) |
+
+The change is a single line: replace the damage-first Death Strike with the
+module's **health-reactive 5s-window** condition (keeping Vampiric Blood on
+cooldown). It reproduces on a second, steeper ramp (50.9 s → 60.6 s, +9.7 s).
+
+What did **not** help (all measured, none beat the plateau):
+
+* Gating Vampiric Blood to low health — it *hurts* under a per-hit ramp
+  (on-cooldown wins: more uptime); the opposite of the result under a coarse
+  per-10s ramp. Same knob, ramp-shape-dependent verdict.
+* Earlier/deferred Bone Shield top-up (thresholds 6–10) — inert (Bone Shield is
+  refreshed by other buttons anyway).
+* Reacting to damage spikes, longer DS windows, and a damage-spike trigger.
+* Icebound Fortitude — worth ~0.2 s (it is one extra GCD, and does not stack).
+* Lichborne — **not implemented (NYI) in SimC**, and it is magic-immunity, useless
+  against a physical stream.
+
+The search is cheap (a full run is a few seconds), so the practical recipe is:
+fix the ramp shape, then let `tools/search_ttd.py` rank candidates for you.
+
 ## Stat priority (survivability)
 
 Combine the two tank-relevant scale-factor sets:

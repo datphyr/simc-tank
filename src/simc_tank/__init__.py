@@ -11,7 +11,7 @@ Both are computed from an unmodified SimulationCraft binary; see
 ``docs/SIMC_NOTES.md`` for the empirically-verified mechanics and pitfalls.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 from .apl import MODULE_DS_CONDITION, guard, replace_lines  # noqa: F401
 from .metrics import (  # noqa: F401

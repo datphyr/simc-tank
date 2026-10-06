@@ -35,7 +35,14 @@ simc-tank ceiling  examples/example_blood.simc            # the mu = 0 damage ra
 simc-tank margin   examples/example_blood.simc --rate 150000
 simc-tank sweep    examples/example_blood.simc --start 100000 --steps 4
 simc-tank variants examples/example_blood.simc --ds module --ds health80 --ds pure
+
+# run a full action list from a file, and compare two of them
+simc-tank ttd examples/example_blood.simc --actions-file examples/best_survival.actions
 ```
+
+`examples/best_survival.actions` is a Blood DK action list found by
+[`tools/search_ttd.py`](tools/search_ttd.py) to maximise TTD (+7.8 s over the
+stock APL — see [`docs/METRICS.md`](docs/METRICS.md#searching-for-the-best-survivability-apl)).
 
 `examples/example_blood.simc` is a synthetic Blood DK profile; substitute any
 SimC gear export.
@@ -51,8 +58,9 @@ SimC gear export.
 | `variants` | rank Death Strike strategies by TTD (and show the DPS cost) |
 
 Common options: `--school physical|holy`, `--swing <s>`, `--iterations N`,
-`--simc PATH`. Defaults model the base creature: **physical** damage,
-**+1% per hit**, **2s swing timer**.
+`--simc PATH`, and `--actions-file PATH` (run a full action list read from a
+file). Defaults model the base creature: **physical** damage, **+1% per hit**,
+**2s swing timer**.
 
 ```bash
 simc-tank --help
